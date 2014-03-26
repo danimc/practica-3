@@ -18,7 +18,7 @@ namespace practica_3
 		public static void Main(string[] args)
      		{
 			int a=0;
-			string clave_elegida;
+			string clave_elegida, accion;
 			Hashtable tabla = new Hashtable();
 			
 			do{
@@ -36,11 +36,10 @@ namespace practica_3
 			}while(a <= 2);
 			
 			PrintKeysAndValues(tabla);
-			
+			do{
 			Console.WriteLine(" Deseas Modificar[1] o eliminar[2] un valor");
 			int eleccion = int.Parse(Console.ReadLine());
 			Console.Clear();
-			
 			if(eleccion == 1){
 				
 				Console.WriteLine("Captura la clave a modificar");
@@ -49,7 +48,7 @@ namespace practica_3
 				if(tabla.Contains(clave_elegida)){
 					Console.WriteLine("¿Seguro que quiere modificar este registro?");
 					Console.WriteLine("Clave  Nombre");
-					Console.WriteLine(clave_elegida + ' ' +  tabla[clave_elegida].ToString());
+					Console.WriteLine(clave_elegida + ' ' + ' ' + tabla[clave_elegida].ToString());
 					char seguridad = char.Parse(Console.ReadLine());
 					if (seguridad == 's'){
 						persona p = new persona();
@@ -60,6 +59,7 @@ namespace practica_3
 						tabla.Remove(clave_elegida);
 						tabla.Add(p.clave, p.nombre);
 						Console.WriteLine("la tabla se ah modificado");
+						PrintKeysAndValues(tabla);
 						}
 					else{
 						Console.WriteLine("No se ah hecho ningun cambio");
@@ -70,9 +70,30 @@ namespace practica_3
 				}
 				
 			}
+			else{
+				Console.WriteLine("Teclee la clave a eliminar");
+				clave_elegida = Console.ReadLine();
+				if(tabla.Contains(clave_elegida)){
+				   	Console.WriteLine("Seguro que desea Eliminar este Registro: " + clave_elegida);
+				   	char seguridad = char.Parse(Console.ReadLine());
+				   	if(seguridad == 's'){
+				   		tabla.Remove(clave_elegida);
+				   		Console.WriteLine("Se ah borrado el registro con exito");
+				   		PrintKeysAndValues(tabla);
+				   	}
+				   	else{
+				   		Console.WriteLine("No se ha Eliminado el registro" + clave_elegida);
+				   		}
+					}
+				else{
+					Console.WriteLine("La Clave ingresada no existe");
+				}
+			}
 			
-			
-			Console.Write("Press any key to continue . . . ");
+			Console.WriteLine("desea continuar editando los valores? [s/n]");
+			accion = Console.ReadLine();
+			}while( accion == "s");
+			Console.Write("Gracias por utilizar Software LDMC ");
 			Console.ReadKey(true);
 		
 			 	}
